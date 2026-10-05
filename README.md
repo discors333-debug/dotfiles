@@ -2,6 +2,10 @@
 
 harri's Arch setup: the MangoWM rice (waybar, rofi, kitty, mako, satty, wallpaper colour theming), zsh + powerlevel10k, app configs, scripts and wallpapers. Hyprland, niri, COSMIC and KDE configs are in here too, but the install script sets up Mango.
 
+**[Keybinds cheat sheet →](KEYBINDS.md)**
+
+The installer also adds the ricing apps: fastfetch, neofetch, fetch (3D), cava, btop, cbonsai, lavat, cmatrix, peaclock, hollywood, sl, cowsay, pipes.sh, swaync, matugen, ghostty, MangoHud, Spotify + Spicetify and sptlrx.
+
 ## Install
 
 ```sh
@@ -10,7 +14,7 @@ cd ~/dotfiles
 ./install.sh
 ```
 
-Then log out, pick **Mango** on the login screen and log in.
+Then log out, pick **Mango** on the login screen and log in. For the Spotify theme, open Spotify once, close it, then run `~/.spicetify/spicetify backup apply`.
 
 | Option | What it does |
 |---|---|

@@ -40,8 +40,14 @@ RICE_PACKAGES=(
   ttf-jetbrains-mono-nerd ttf-iosevka-nerd noto-fonts noto-fonts-emoji
   breeze-icons breeze adw-gtk-theme
   xdg-desktop-portal-wlr xdg-desktop-portal-gtk
+  # ricing apps: fetch, terminal toys, theming
+  cava htop sl lazygit micro swaync matugen qt5ct qt6ct ghostty
+  mangohud goverlay spotify-launcher
 )
-RICE_AUR=(wlogout)
+RICE_AUR=(
+  wlogout
+  neofetch fetch-git cbonsai lavat peaclock hollywood opsec sptlrx
+)
 
 ensure_yay() {
   command -v yay >/dev/null && return
@@ -128,6 +134,20 @@ if [ "$(getent passwd "$USER" | cut -d: -f7)" != "$(command -v zsh)" ]; then
   sudo chsh -s "$(command -v zsh)" "$USER"
 fi
 
+if [ ! -x "$HOME/.spicetify/spicetify" ]; then
+  # Fetch the release directly; the official installer prompts and edits .zshrc.
+  say "installing spicetify (Spotify theming)"
+  tag="$(curl -fsSL -o /dev/null -w '%{url_effective}' https://github.com/spicetify/cli/releases/latest)"
+  tag="${tag##*/v}"
+  mkdir -p "$HOME/.spicetify"
+  if curl -fsSL "https://github.com/spicetify/cli/releases/download/v$tag/spicetify-$tag-linux-amd64.tar.gz" \
+      | tar xz -C "$HOME/.spicetify"; then
+    chmod +x "$HOME/.spicetify/spicetify"
+  else
+    warn "spicetify download failed; get it from https://spicetify.app"
+  fi
+fi
+
 command -v pkgfile >/dev/null && { sudo pkgfile -u >/dev/null 2>&1 || true; }
 command -v fc-cache >/dev/null && fc-cache -f >/dev/null
 
@@ -135,4 +155,5 @@ chmod +x "$HOME"/.config/mango/*.sh "$HOME"/.local/bin/* 2>/dev/null || true
 
 say "done"
 echo "Log out, pick \"Mango\" on the login screen, and log in."
+echo "For the Spotify theme: open Spotify once, close it, then run: ~/.spicetify/spicetify backup apply"
 if [ -d "$BACKUP" ]; then echo "Your old configs are in $BACKUP"; fi

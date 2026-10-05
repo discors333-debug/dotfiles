@@ -9,7 +9,7 @@ The installer also adds the ricing apps: fastfetch, neofetch, fetch (3D), cava, 
 ## Install
 
 ```sh
-git clone https://github.com/<you>/dotfiles ~/dotfiles
+git clone https://github.com/discors333-debug/dotfiles ~/dotfiles
 cd ~/dotfiles
 ./install.sh
 ```

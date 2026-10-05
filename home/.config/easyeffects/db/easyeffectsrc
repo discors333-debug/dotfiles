@@ -1,0 +1,5 @@
+[StreamInputs]
+inputDevice=alsa_input.usb-Image__UGREEN_Camera_4K_LL-0000000001-02.analog-stereo
+
+[StreamOutputs]
+outputDevice=alsa_output.usb-HP__Inc_HyperX_Cloud_Jet_C1Y51400SQ-00.analog-stereo

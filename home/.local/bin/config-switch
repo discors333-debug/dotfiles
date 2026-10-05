@@ -1,0 +1,96 @@
+#!/bin/sh
+# usage: config-switch <niri|hyprland|mango|serpantinum-niri|serpantinum-hypr>
+want="$1"
+P=~/.config/shell-profiles
+case "$want" in
+    niri) need=niri; label="config1 (niri + your waybar)" ;;
+    hyprland) need=hyprland; label="config2 (Hyprland + your waybar)" ;;
+    mango) need=mango; label="configmango (mango WM, no Serpantinum)" ;;
+    serpantinum-niri) need=niri; label="config4 (Serpantinum on niri)" ;;
+    serpantinum-hypr) need=hyprland; label="config5 (Serpantinum on Hyprland)" ;;
+    *) echo "unknown config: $want"; exit 1 ;;
+esac
+case "$want" in
+    serpantinum-*) command -v serpantinumd >/dev/null 2>&1 || { echo "Serpantinum isn't installed"; exit 1; } ;;
+esac
+
+if [ "$XDG_CURRENT_DESKTOP" = mango ]; then cur=mango
+elif [ -n "$NIRI_SOCKET" ]; then cur=niri
+elif [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then cur=hyprland
+else cur=none; fi
+
+if [ "$cur" = none ]; then
+    printf "Are you sure you want to switch to %s? [y/N] " "$label"
+elif [ "$cur" != "$need" ]; then
+    printf "Are you sure you want to switch to %s? This logs you out of %s (close your apps first). [y/N] " "$label" "$cur"
+else
+    printf "Are you sure you want to switch to %s? [y/N] " "$label"
+fi
+read -r ans
+case "$ans" in y|Y) ;; *) echo "Cancelled, nothing changed."; exit 0 ;; esac
+
+# Save any edits you made on the current config before replacing files
+config-save
+
+# Put the chosen compositor's config files in place
+case "$want" in
+    niri)
+        cp $P/niri-mine/config.kdl $P/niri-mine/shell-start.sh ~/.config/niri/ ;;
+    serpantinum-niri)
+        cp -r $P/niri-serpantinum/config.kdl $P/niri-serpantinum/config ~/.config/niri/ ;;
+    hyprland)
+        cp $P/hypr-mine/hyprland.lua ~/.config/hypr/hyprland.lua ;;
+    mango) ;;  # ~/.config/mango is used as-is
+    serpantinum-hypr)
+        mkdir -p ~/.config/hypr/config
+        cp -r $P/hypr-serpantinum/config/. ~/.config/hypr/config/
+        cp $P/hypr-serpantinum/hyprland.lua ~/.config/hypr/hyprland.lua ;;
+esac
+echo "$want" > ~/.config/shell-choice
+case "$want" in
+    niri) echo niri-mine > $P/.active-niri ;;
+    serpantinum-niri) echo niri-serpantinum > $P/.active-niri ;;
+    hyprland) echo hypr-mine > $P/.active-hypr ;;
+    mango) ;;
+    serpantinum-hypr) echo hypr-serpantinum > $P/.active-hypr ;;
+esac
+case "$want" in
+    serpantinum-*) echo theme-serpantinum > $P/.active-theme ;;
+    *) echo theme-mine > $P/.active-theme ;;
+esac
+# Terminal look: kitty colours/config and fastfetch follow the config
+case "$want" in
+    serpantinum-*) T=$P/theme-serpantinum ;;
+    *) T=$P/theme-mine ;;
+esac
+cp $T/kitty.conf $T/colors.conf ~/.config/kitty/
+cp $T/fastfetch/config.jsonc ~/.config/fastfetch/config.jsonc
+cp $T/cava/config ~/.config/cava/config
+pkill -USR1 -x cava 2>/dev/null
+pkill -USR1 -x kitty 2>/dev/null
+
+if [ "$cur" = none ]; then
+    echo "Not in a graphical session. Log in and pick $need at the login screen."; exit 0
+fi
+
+if [ "$cur" != "$need" ]; then
+    echo "Logging out, pick $need at the login screen."
+    if [ "$cur" = mango ]; then mmsg dispatch quit
+    elif [ "$cur" = niri ]; then niri msg action quit --skip-confirmation
+    else command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'; fi
+    exit 0
+fi
+
+# Same compositor: swap the shell live
+serpantinumd stop >/dev/null 2>&1
+pkill -x quickshell; pkill -x waybar; pkill -x swaync
+sleep 1
+case "$want" in
+    serpantinum-*) setsid serpantinumd start >/dev/null 2>&1 & ;;
+    mango) setsid waybar >/dev/null 2>&1 &
+           (pgrep -x awww-daemon >/dev/null || setsid awww-daemon >/dev/null 2>&1 &); sleep 0.5
+           [ -e "$HOME/.current_wallpaper" ] && awww img "$HOME/.current_wallpaper" --transition-type none ;;
+    niri) setsid ~/.config/niri/shell-start.sh >/dev/null 2>&1 & ;;
+    *) setsid ~/.config/hypr/scripts/shell-start.sh >/dev/null 2>&1 & ;;
+esac
+echo "Switched to $want"

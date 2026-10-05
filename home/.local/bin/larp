@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# larp: open a kitty window for each terminal eye-candy program.
+
+progs=(
+  "$HOME/.local/bin/pipes.sh -c 1 -c 7 -c 0"
+  "cava"
+  "fastfetch"
+  "cmatrix -C red"
+  "lavat -c red -k red"
+)
+
+# switch to workspace 9, where mango's windowrule for appid "larp" puts these
+mmsg dispatch view,9,0 >/dev/null 2>&1
+
+for p in "${progs[@]}"; do
+  # --hold keeps the window open after one-shot commands like fastfetch exit
+  setsid -f kitty --class larp --hold sh -c "$p" >/dev/null 2>&1
+done

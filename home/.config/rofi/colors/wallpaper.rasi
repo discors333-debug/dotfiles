@@ -1,0 +1,9 @@
+/* Written by ~/.config/mango/apply-theme.sh from the wallpaper's colour word */
+* {
+    background:     #0a0a0aFF;
+    background-alt: #1a1a1aFF;
+    foreground:     #FFFFFFFF;
+    selected:       #ffffffFF;
+    active:         #404040FF;
+    urgent:         #ffffffFF;
+}

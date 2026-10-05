@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# larp1: open 50 separate kitty windows running cmatrix on workspace 9.
+# cmatrix is restarted if it exits (e.g. pressing q), so the windows stay open.
+# Close them all with: pkill -f 'larp1-cmatrix'
+
+# switch to workspace 9, where mango's windowrule for appid "larp" puts these
+mmsg dispatch view,9,0 >/dev/null 2>&1
+
+for i in $(seq 50); do
+  # trailing "larp1-cmatrix" is just $0 for sh, a tag so pkill can find these
+  setsid -f kitty --class larp sh -c 'while :; do cmatrix -C red; sleep 0.2; done' larp1-cmatrix >/dev/null 2>&1
+  sleep 0.02
+done

@@ -1,0 +1,20 @@
+/* Written by ~/.config/mango/apply-theme.sh from the wallpaper's colour word */
+:root {
+    --accent-bg-color: #ffffff;
+    --accent-fg-color: #000000;
+    --accent-color: #ffffff;
+    --window-bg-color: #121212;
+    --window-fg-color: #ffffff;
+    --view-bg-color: #0a0a0a;
+    --headerbar-bg-color: #1a1a1a;
+    --headerbar-backdrop-color: #0a0a0a;
+    --popover-bg-color: #1f1f1f;
+    --dialog-bg-color: #1f1f1f;
+    --card-bg-color: alpha(#ffffff, 0.06);
+    --border-color: alpha(#ffffff, 0.25);
+}
+.osd, .toolbar.osd, toolbar.osd {
+    background-color: alpha(#0a0a0a, 0.9);
+    border: 1px solid alpha(#ffffff, 0.4);
+    border-radius: 12px;
+}

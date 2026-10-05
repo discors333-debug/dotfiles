@@ -1,0 +1,24 @@
+# Matches the kitty setup: font, padding, transparency
+font-family = JetBrainsMono Nerd Font
+font-size = 13
+background-opacity = 0.8
+window-padding-x = 20
+window-padding-y = 15
+window-decoration = false
+confirm-close-surface = false
+
+# Colours, written by ~/.config/mango/apply-theme.sh from the wallpaper's colour word
+config-file = ?colors.ghostty
+
+# Ghost cursor trail + ripple, both drawn in the cursor colour
+# (more effects in shaders/, from github.com/sahaj-b/ghostty-cursor-shaders)
+custom-shader = shaders/cursor_warp.glsl
+custom-shader = shaders/ripple_cursor.glsl
+# keeps the ripple from freezing when the window loses focus
+custom-shader-animation = always
+
+# Solid block cursor, no blinking; no-cursor stops shell integration
+# switching it to a bar at the prompt
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor

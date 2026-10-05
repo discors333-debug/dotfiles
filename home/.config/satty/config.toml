@@ -1,0 +1,28 @@
+# Satty, opened by ~/.config/mango/screenshot.sh (Print)
+[general]
+floating-hack = true
+resize = { mode = "smart" }
+early-exit = ["copy", "save"]
+corner-roundness = 8
+initial-tool = "arrow"
+copy-command = "wl-copy"
+annotation-size-factor = 1.5
+output-filename = "~/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S.png"
+save-after-copy = true
+actions-on-enter = ["save-to-clipboard", "save-to-file"]
+actions-on-escape = ["exit"]
+no-window-decoration = true
+brush-smooth-history-size = 10
+title = "Screenshot"
+notification-thumbnail = "screenshot"
+
+[font]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+# palette is written by ~/.config/mango/apply-theme.sh from the wallpaper's colour word
+# wallpaper-theme start
+[color-palette]
+palette = ["#ffffffff", "#ffffffff", "#999999ff", "#ffffffff", "#000000ff"]
+custom = ["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#cccccc", "#999999", "#666666", "#ffffff", "#000000"]
+# wallpaper-theme end

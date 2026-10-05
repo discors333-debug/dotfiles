@@ -1,0 +1,13 @@
+[
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 305,
+                "origin_hash": "d8e5c09ee35027fdfcd115aef4a70c55"
+            }
+        ],
+        "target_uinput": "gamepad",
+        "name": "Button a"
+    }
+]

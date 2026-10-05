@@ -1,0 +1,14 @@
+[Default Applications]
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
+text/html=chromium.desktop
+x-scheme-handler/http=chromium.desktop
+x-scheme-handler/https=chromium.desktop
+x-scheme-handler/about=chromium.desktop
+x-scheme-handler/unknown=chromium.desktop
+x-scheme-handler/tg=userapp-Telegram Desktop-0NLIW3.desktop
+x-scheme-handler/tonsite=userapp-Telegram Desktop-7QIIW3.desktop
+x-scheme-handler/discord=vesktop.desktop
+
+[Added Associations]
+x-scheme-handler/tg=userapp-Telegram Desktop-0NLIW3.desktop;
+x-scheme-handler/tonsite=userapp-Telegram Desktop-7QIIW3.desktop;

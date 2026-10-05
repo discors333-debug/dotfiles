@@ -1,0 +1,14 @@
+/* Written by ~/.config/mango/apply-theme.sh from the wallpaper's colour word */
+@define-color wp_accent #ffffff;
+@define-color wp_on_accent #000000;
+@define-color wp_base #1a1a1a;
+@define-color wp_border #404040;
+@define-color wp_menu_bg #0a0a0a;
+@define-color wp_fg white;
+@define-color wp_tooltip_bg alpha(#0a0a0a, 0.8);
+@define-color wp_tooltip_border alpha(#ffffff, 0.5);
+@define-color wp_trough alpha(#ffffff, 0.2);
+@define-color wp_tint1 #ffffff;
+@define-color wp_tint2 #ffffff;
+@define-color wp_tint3 #ffffff;
+@define-color wp_dim #999999;

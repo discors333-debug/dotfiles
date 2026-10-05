@@ -1,0 +1,9 @@
+// Waybar config for niri: reuses config.jsonc and only swaps the
+// mango (ext) workspaces module for niri's. Keys here override the include.
+{
+  "include": ["~/.config/waybar/config.jsonc"],
+  "modules-left": ["niri/workspaces"],
+  "niri/workspaces": {
+    "format": "{index}"
+  }
+}

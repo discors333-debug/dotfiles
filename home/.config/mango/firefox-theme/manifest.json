@@ -1,0 +1,9 @@
+{
+    "manifest_version": 2,
+    "name": "Wallpaper Theme",
+    "version": "1.0",
+    "description": "Colours Firefox from the desktop's wallpaper theme (~/.config/mango/apply-theme.sh)",
+    "browser_specific_settings": { "gecko": { "id": "wallpaper-theme@harri.local" } },
+    "permissions": ["theme", "nativeMessaging"],
+    "background": { "scripts": ["background.js"] }
+}

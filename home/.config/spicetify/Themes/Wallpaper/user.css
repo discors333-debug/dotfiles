@@ -1,0 +1,110 @@
+/* Points Spotify's own colour sets and leftover hard-coded greens at the --spice-* colours
+   from color.ini, so ~/.config/mango/apply-theme.sh switches all of it live */
+
+.encore-dark-theme,
+.encore-dark-theme .encore-base-set {
+    --background-base: var(--spice-main) !important;
+    --background-highlight: var(--spice-highlight) !important;
+    --background-press: var(--spice-sidebar) !important;
+    --background-elevated-base: var(--spice-main-elevated) !important;
+    --background-elevated-highlight: var(--spice-highlight) !important;
+    --background-elevated-press: var(--spice-main-elevated) !important;
+    --background-tinted-base: rgba(var(--spice-rgb-button), 0.1) !important;
+    --background-tinted-highlight: rgba(var(--spice-rgb-button), 0.16) !important;
+    --background-tinted-press: rgba(var(--spice-rgb-button), 0.24) !important;
+    --text-base: var(--spice-text) !important;
+    --text-subdued: var(--spice-subtext) !important;
+    --text-bright-accent: var(--spice-button) !important;
+    --text-positive: var(--spice-button) !important;
+    --text-announcement: var(--spice-button) !important;
+    --essential-base: var(--spice-text) !important;
+    --essential-subdued: var(--spice-button-disabled) !important;
+    --essential-bright-accent: var(--spice-button) !important;
+    --essential-positive: var(--spice-button) !important;
+    --essential-announcement: var(--spice-button) !important;
+    --decorative-base: var(--spice-text) !important;
+    --decorative-subdued: var(--spice-misc) !important;
+}
+
+.encore-dark-theme .encore-muted-accent-set {
+    --background-base: var(--spice-sidebar) !important;
+    --background-highlight: var(--spice-card) !important;
+    --background-press: var(--spice-highlight-elevated) !important;
+    --background-elevated-base: var(--spice-card) !important;
+    --background-elevated-highlight: var(--spice-highlight-elevated) !important;
+    --background-elevated-press: var(--spice-sidebar) !important;
+    --background-tinted-base: rgba(var(--spice-rgb-button), 0.13) !important;
+    --background-tinted-highlight: rgba(var(--spice-rgb-button), 0.17) !important;
+    --background-tinted-press: rgba(var(--spice-rgb-button), 0.24) !important;
+    --text-subdued: var(--spice-subtext) !important;
+    --text-bright-accent: var(--spice-button) !important;
+    --essential-subdued: var(--spice-button-disabled) !important;
+    --essential-bright-accent: var(--spice-button) !important;
+    --decorative-subdued: var(--spice-misc) !important;
+}
+
+/* Play buttons, "positive" chips and announcements: accent with dark text */
+.encore-dark-theme .encore-bright-accent-set,
+.encore-dark-theme .encore-positive-set,
+.encore-dark-theme .encore-announcement-set {
+    --background-base: var(--spice-button) !important;
+    --background-highlight: var(--spice-button-active) !important;
+    --background-press: var(--spice-button) !important;
+    --background-elevated-base: var(--spice-button-active) !important;
+    --background-elevated-highlight: var(--spice-button-active) !important;
+    --background-elevated-press: var(--spice-button) !important;
+    --background-tinted-base: var(--spice-button) !important;
+    --background-tinted-highlight: var(--spice-button-active) !important;
+    --background-tinted-press: var(--spice-button) !important;
+    --text-base: var(--spice-main) !important;
+    --text-subdued: var(--spice-main) !important;
+    --essential-base: var(--spice-main) !important;
+    --essential-subdued: var(--spice-main) !important;
+    --decorative-base: var(--spice-main) !important;
+    --decorative-subdued: var(--spice-button-active) !important;
+}
+
+/* White surfaces (tooltips, light buttons) get a hint of the accent */
+.encore-dark-theme .encore-inverted-light-set {
+    --background-base: color-mix(in srgb, var(--spice-button) 12%, #fff) !important;
+    --background-highlight: color-mix(in srgb, var(--spice-button) 22%, #fff) !important;
+    --background-press: color-mix(in srgb, var(--spice-button) 32%, #fff) !important;
+    --text-bright-accent: color-mix(in srgb, var(--spice-button) 55%, #000) !important;
+    --essential-bright-accent: color-mix(in srgb, var(--spice-button) 55%, #000) !important;
+}
+
+.x-progressBar-fillColor,
+.x-progressBar-progressFillColor {
+    background-color: var(--spice-button) !important;
+}
+.x-progressBar-progressBarBg {
+    background-color: rgba(var(--spice-rgb-button), 0.25) !important;
+}
+.progress-bar__slider {
+    background-color: var(--spice-button-active) !important;
+}
+
+.x-toggle-input:checked ~ .x-toggle-indicatorWrapper,
+.x-toggle-input:checked:hover ~ .x-toggle-indicatorWrapper {
+    background-color: var(--spice-button) !important;
+}
+.main-contextMenu-menuItemButton[aria-checked=true] {
+    color: var(--spice-button) !important;
+}
+
+/* Album/playlist header and home gradients use the accent instead of the cover colour */
+.main-entityHeader-backgroundColor,
+.main-home-homeHeader {
+    background-color: var(--spice-tab-active) !important;
+}
+
+.os-scrollbar-handle {
+    background: rgba(var(--spice-rgb-button), 0.45) !important;
+}
+.os-scrollbar-handle:hover {
+    background: rgba(var(--spice-rgb-button), 0.7) !important;
+}
+
+::selection {
+    background: rgba(var(--spice-rgb-button), 0.5);
+}

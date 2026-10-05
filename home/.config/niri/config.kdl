@@ -1,0 +1,266 @@
+// niri config — ported from ~/.config/hypr/hyprland.lua
+// Docs: https://niri-wm.github.io/niri/Configuration:-Introduction
+// Check for errors after editing with: niri validate
+// Live-reloads on save; press Mod+Shift+/ in niri to see all keybinds.
+
+//////////////////
+//// MONITORS ////
+//////////////////
+// Names are "make model serial", so they stay put even if cables move ports.
+// List what niri sees with: niri msg outputs
+
+// Main monitor: R27qe Gen2 at its full refresh rate (niri picks the highest
+// rate for the resolution when none is given). Workspace 1 starts here.
+output "Lenovo Group Limited R27qe Gen2 UTP03961" {
+    mode "2560x1440"
+    scale 1
+    position x=1440 y=800
+    focus-at-startup
+}
+
+// Secondary monitor: portrait, to the left of main (effective width 1440).
+// Same transform as Hyprland's `transform = 1`. If it comes up upside down,
+// change "90" to "270".
+output "Lenovo Group Limited R27qe UP331YNW" {
+    mode "2560x1440"
+    scale 1
+    transform "90"
+    position x=0 y=0
+}
+
+///////////////
+//// INPUT ////
+///////////////
+input {
+    keyboard {
+        xkb {
+            layout "us"
+        }
+    }
+
+    touchpad {
+        tap
+    }
+
+    // Like Hyprland's follow_mouse = 1, but never scrolls the view on hover.
+    focus-follows-mouse max-scroll-amount="0%"
+    warp-mouse-to-focus
+}
+
+cursor {
+    xcursor-theme "breeze_cursors"
+    xcursor-size 24
+}
+
+////////////////
+//// LAYOUT ////
+////////////////
+layout {
+    // Hyprland had gaps_in 5 (10px between windows) / gaps_out 20.
+    gaps 10
+    struts {
+        left 10
+        right 10
+        top 10
+        bottom 10
+    }
+
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+    default-column-width { proportion 0.5; }
+
+    preset-window-heights {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    // Red border like the Hyprland setup; focus ring off so it isn't doubled up.
+    focus-ring {
+        off
+    }
+    border {
+        width 2
+        active-color "#ff0000"
+        inactive-color "#400000aa"
+        urgent-color "#ff9b00"
+    }
+
+    shadow {
+        on
+    }
+}
+
+prefer-no-csd
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+///////////////////
+//// AUTOSTART ////
+///////////////////
+// xwayland-satellite is started automatically by niri when installed.
+spawn-at-startup "/usr/lib/hyprpolkitagent/hyprpolkitagent"
+spawn-sh-at-startup "wl-paste --type text --watch cliphist store"
+spawn-sh-at-startup "wl-paste --type image --watch cliphist store"
+spawn-at-startup "awww-daemon"
+// niri-specific waybar config (niri workspaces instead of Hyprland's).
+spawn-sh-at-startup "~/.config/niri/shell-start.sh"
+
+//////////////////////
+//// WINDOW RULES ////
+//////////////////////
+// Rounded corners (Hyprland rounding = 10).
+window-rule {
+    geometry-corner-radius 10
+    clip-to-geometry true
+    // kitty asks to open maximized; that drops the gaps and red border, so refuse it.
+    open-maximized-to-edges false
+}
+
+window-rule {
+    match app-id="^firefox$" title="^Picture-in-Picture$"
+    open-floating true
+}
+
+//////////////////
+//// KEYBINDS ////
+//////////////////
+// Mod = Super. Kept close to the Hyprland binds where niri has an equivalent.
+binds {
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    // Programs
+    Mod+Q hotkey-overlay-title="Terminal: kitty" { spawn "kitty"; }
+    Mod+Space hotkey-overlay-title="App launcher: rofi" { spawn-sh "~/.config/rofi/launchers/type-2/launcher.sh"; }
+    Mod+E hotkey-overlay-title="File manager: dolphin" { spawn "dolphin"; }
+    Mod+N hotkey-overlay-title="Claude Code in kitty" { spawn "kitty" "--title" "claude" "claude"; }
+    Mod+R hotkey-overlay-title="Wallpaper picker" { spawn-sh "~/.config/hypr/scripts/wallpaper-select.sh"; }
+    Mod+Escape hotkey-overlay-title="Lock screen: hyprlock" { spawn "hyprlock"; }
+
+    // Screenshots: niri's built-in region picker saves to screenshot-path and
+    // copies to the clipboard (replaces hyprshot, which needs Hyprland).
+    Mod+A { screenshot; }
+    Print { screenshot; }
+    Ctrl+Print { screenshot-screen; }
+    Alt+Print { screenshot-window; }
+
+    // Windows
+    Mod+W repeat=false { close-window; }
+    Mod+V { toggle-window-floating; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+F { fullscreen-window; }
+    Mod+Shift+F { maximize-column; }
+    Mod+Ctrl+F { expand-column-to-available-width; }
+    Mod+C { center-column; }
+    Mod+T { toggle-column-tabbed-display; }
+    Mod+O repeat=false { toggle-overview; }
+
+    // Focus (arrows or vim keys)
+    Mod+Left  { focus-column-left; }
+    Mod+Right { focus-column-right; }
+    Mod+Up    { focus-window-or-workspace-up; }
+    Mod+Down  { focus-window-or-workspace-down; }
+    Mod+H     { focus-column-left; }
+    Mod+L     { focus-column-right; }
+    Mod+K     { focus-window-or-workspace-up; }
+    Mod+J     { focus-window-or-workspace-down; }
+    Mod+Home  { focus-column-first; }
+    Mod+End   { focus-column-last; }
+
+    // Move (same modifier as Hyprland's move binds)
+    Mod+Shift+Left  { move-column-left; }
+    Mod+Shift+Right { move-column-right; }
+    Mod+Shift+Up    { move-window-up-or-to-workspace-up; }
+    Mod+Shift+Down  { move-window-down-or-to-workspace-down; }
+    Mod+Shift+H     { move-column-left; }
+    Mod+Shift+L     { move-column-right; }
+    Mod+Shift+K     { move-window-up-or-to-workspace-up; }
+    Mod+Shift+J     { move-window-down-or-to-workspace-down; }
+    Mod+Shift+Home  { move-column-to-first; }
+    Mod+Shift+End   { move-column-to-last; }
+
+    // Resize (same modifier as Hyprland's resize binds)
+    Mod+Ctrl+Left  { set-column-width "-10%"; }
+    Mod+Ctrl+Right { set-column-width "+10%"; }
+    Mod+Ctrl+Up    { set-window-height "-10%"; }
+    Mod+Ctrl+Down  { set-window-height "+10%"; }
+    Mod+Ctrl+R     { switch-preset-column-width; }
+    Mod+Shift+R    { switch-preset-window-height; }
+    Mod+Ctrl+Shift+R { reset-window-height; }
+
+    // Stack windows into columns / pull them out again
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+Comma        { consume-window-into-column; }
+    Mod+Period       { expel-window-from-column; }
+
+    // Monitors
+    Mod+Alt+Left        { focus-monitor-left; }
+    Mod+Alt+Right       { focus-monitor-right; }
+    Mod+Alt+Shift+Left  { move-column-to-monitor-left; }
+    Mod+Alt+Shift+Right { move-column-to-monitor-right; }
+
+    // Workspaces (niri workspaces are per-monitor and dynamic)
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+
+    Mod+Z { focus-workspace-up; }
+    Mod+X { focus-workspace-down; }
+    Mod+Shift+Z { move-column-to-workspace-up; }
+    Mod+Shift+X { move-column-to-workspace-down; }
+    Mod+Page_Up   { focus-workspace-up; }
+    Mod+Page_Down { focus-workspace-down; }
+    Mod+Tab { focus-workspace-previous; }
+
+    // Mouse wheel: Mod+scroll switches workspace, Mod+Shift+scroll moves between columns
+    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
+    Mod+WheelScrollRight { focus-column-right; }
+    Mod+WheelScrollLeft  { focus-column-left; }
+    Mod+Shift+WheelScrollDown { focus-column-right; }
+    Mod+Shift+WheelScrollUp   { focus-column-left; }
+
+    // Media keys
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+    XF86AudioNext        allow-when-locked=true { spawn "playerctl" "next"; }
+    XF86AudioPrev        allow-when-locked=true { spawn "playerctl" "previous"; }
+    XF86AudioPlay        allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86AudioPause       allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "-e4" "-n2" "set" "5%+"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "-e4" "-n2" "set" "5%-"; }
+
+    // Session
+    Mod+Shift+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+    Mod+Shift+P { power-off-monitors; }
+    Mod+M { quit; }
+    Ctrl+Alt+Delete { quit; }
+}
+
+// Overview backdrop
+overview {
+    backdrop-color "#000000"
+}

@@ -1,0 +1,168 @@
+/* Colours come from colors-wallpaper.css, written by ~/.config/mango/apply-theme.sh */
+@import "colors-wallpaper.css";
+
+* {
+  font-family: JetbrainsMono Nerd Font;
+  font-size: 10px;
+  min-height: 0;
+  padding-right: 2px;
+  padding-left: 2px;
+  padding-bottom: 0px;
+}
+
+#waybar {
+  background: transparent;
+  color: @wp_tint3;
+  margin: 2px 2px;
+}
+
+tooltip {
+  background: @wp_tooltip_bg;
+  border: 1px solid @wp_tooltip_border;
+}
+
+tooltip label {
+  color: @wp_fg;
+}
+
+#workspaces {
+  border-radius: 5px;
+  margin: 5px;
+  background: @wp_menu_bg;
+  margin-left: 2px;
+}
+
+#workspaces button {
+  color: @wp_tint2;
+  border-radius: 5px;
+  padding: 0.4rem;
+}
+
+#workspaces button.active {
+  color: @wp_accent;
+  border-radius: 5px;
+}
+
+button {
+  background: transparent;
+}
+
+#workspaces button:hover {
+  background: @wp_base;
+  border: 0px solid transparent;
+}
+
+#custom-music,
+#tray,
+#backlight,
+#clock,
+#battery,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#custom-lock,
+#custom-power,
+#custom-weather,
+#custom-uptime,
+#custom-docker {
+  background-color: @wp_menu_bg;
+  padding: 0.5rem 1rem;
+  margin: 5px 0;
+}
+
+#clock {
+  color: @wp_accent;
+  border-radius: 5px;
+}
+
+#custom-weather {
+  color: @wp_accent;
+  margin-left: 0.5rem;
+  border-radius: 5px;
+}
+
+#battery {
+  color: @wp_tint1;
+}
+
+#battery.charging {
+  color: @wp_tint1;
+}
+
+#battery.warning:not(.charging) {
+  color: #e78284;
+}
+
+#backlight {
+  color: @wp_tint2;
+}
+
+#backlight,
+#battery {
+  border-radius: 0;
+}
+
+#pulseaudio {
+  color: @wp_accent;
+  border-radius: 5px 0px 0px 5px;
+}
+
+#custom-docker {
+  color: @wp_tint1;
+}
+
+#custom-music {
+  color: @wp_tint2;
+  border-radius: 5px;
+}
+
+#custom-lock {
+  color: @wp_tint2;
+}
+
+#custom-power {
+  margin-right: 1rem;
+  border-radius: 0px 5px 5px 0px;
+  color: @wp_accent;
+}
+
+#custom-docker.docker {
+  color: @wp_tint1;
+}
+
+#custom-docker.docker-none {
+  color: @wp_dim;
+}
+
+#custom-docker.docker-error {
+  color: #e78284;
+}
+
+#custom-weather.clear {
+  color: @wp_tint1;
+}
+
+#custom-weather.cloud {
+  color: @wp_tint2;
+}
+
+#custom-weather.rain {
+  color: @wp_accent;
+}
+
+#custom-weather.snow {
+  color: @wp_tint3;
+}
+
+#custom-weather.thunder {
+  color: @wp_tint1;
+}
+
+#custom-weather.fog {
+  color: @wp_dim;
+}
+
+#custom-weather.error {
+  color: #e78284; /* Red */
+}

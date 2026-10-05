@@ -1,0 +1,6 @@
+[screencast]
+# rofi lists both monitors and individual windows to share
+chooser_type=dmenu
+chooser_cmd=rofi -dmenu -p 'Share screen:' -theme ~/.config/rofi/launchers/type-4/style-2.rasi
+# NVIDIA + AMD iGPU: linear buffers avoid PipeWire buffer-alloc failures across GPUs
+force_mod_linear=1

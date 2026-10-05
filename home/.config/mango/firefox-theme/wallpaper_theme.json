@@ -1,0 +1,7 @@
+{
+    "name": "wallpaper_theme",
+    "description": "Wallpaper theme colours for Firefox",
+    "path": "/home/harri/.config/mango/firefox-theme/host.py",
+    "type": "stdio",
+    "allowed_extensions": ["wallpaper-theme@harri.local"]
+}

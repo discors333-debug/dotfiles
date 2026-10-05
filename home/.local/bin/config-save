@@ -1,0 +1,25 @@
+#!/bin/sh
+# Saves your live config files back into whichever profile is currently active,
+# so edits made on one config survive switching away and back.
+P=~/.config/shell-profiles
+n=$(cat $P/.active-niri 2>/dev/null); h=$(cat $P/.active-hypr 2>/dev/null); t=$(cat $P/.active-theme 2>/dev/null)
+case "$n" in
+    niri-mine)
+        cp ~/.config/niri/config.kdl ~/.config/niri/shell-start.sh $P/niri-mine/ ;;
+    niri-serpantinum)
+        cp ~/.config/niri/config.kdl $P/niri-serpantinum/
+        mkdir -p $P/niri-serpantinum/config; cp -r ~/.config/niri/config/. $P/niri-serpantinum/config/ ;;
+esac
+case "$h" in
+    hypr-mine)
+        cp ~/.config/hypr/hyprland.lua $P/hypr-mine/ ;;
+    hypr-serpantinum)
+        cp ~/.config/hypr/hyprland.lua $P/hypr-serpantinum/
+        mkdir -p $P/hypr-serpantinum/config; cp -r ~/.config/hypr/config/. $P/hypr-serpantinum/config/ ;;
+esac
+case "$t" in
+    theme-mine|theme-serpantinum)
+        cp ~/.config/kitty/kitty.conf ~/.config/kitty/colors.conf $P/$t/
+        cp ~/.config/fastfetch/config.jsonc $P/$t/fastfetch/config.jsonc
+        cp ~/.config/cava/config $P/$t/cava/config ;;
+esac

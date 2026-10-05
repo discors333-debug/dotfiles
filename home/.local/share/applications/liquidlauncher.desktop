@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=LiquidLauncher
+Comment=LiquidBounce launcher
+Exec=/home/harri/.local/opt/LiquidLauncher/AppRun
+Icon=/home/harri/.local/opt/LiquidLauncher/liquidlauncher.png
+Terminal=false
+Type=Application
+Categories=Game;

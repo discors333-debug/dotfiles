@@ -1,0 +1,13 @@
+/**
+ *
+ * Pure red color scheme
+ **/
+
+* {
+    background:     #0A0000FF;
+    background-alt: #1A0000FF;
+    foreground:     #FFFFFFFF;
+    selected:       #FF0000FF;
+    active:         #FF0000FF;
+    urgent:         #FF0000FF;
+}
